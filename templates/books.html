@@ -1,0 +1,77 @@
+{% extends "_layout.html" %}
+
+        {% block heading %}
+          
+        {% endblock %}
+
+     {% block body %}
+     
+<!-- Start your project here-->
+<div class="container-fluid">
+  <div class="flex-column mt-5">
+      <div class="container mb-5">
+        <form action="" method="POST">
+
+        
+         <div class="row">
+          <div class="offset-sm-3 col-sm-6">
+            <input class="form-control" type="text" placeholder="search for a book using title, isbn or author" name="searchWith">
+          </div>
+         </div>
+         <div class="row">
+          <div class="text-center offset-sm-3 col-sm-6 mt-2" >
+                  <button type="submit" class="btn btn-primary btn-sm" style="border-radius: 20px;">Search</button>
+                
+          </div>
+         </div>
+        </form>
+      </div>
+      <div class="container">
+          {% if searchResult %}
+          <h2 class="alert alert-info">No Result Found</h2>
+      
+         {% else %}
+         
+         <ul>
+       
+         {% for book in books %}
+         <li style="list-style: none">
+       
+           <div class="border border-primary mb-5">
+             <div class="row">
+               <div class="col-sm-4 pl-5">
+                  <b>ISBN Number:</b> {{book.isbn}}
+               </div>
+               <div class="col-sm-4">
+                  <b>Title: </b> {{book.title}}
+                 </div>
+                 <div class="col-sm-4">
+                     <form action="book" method="POST">
+                         <input type="hidden" value="{{book.id}}" name="bookId"  hidden>
+                         <button type="submit" class="btn btn-sm btn-primary">view details</button>
+                       </form>
+                   </div>
+         
+       
+       
+             </div>
+             
+           </div>
+         </li>
+         {% endfor %}
+       </ul>
+      {% endif %}
+</div>
+
+  </div>
+
+</div>
+      {% endblock %}
+
+
+  <!-- Start your project here-->
+
+  
+</body>
+
+</html>

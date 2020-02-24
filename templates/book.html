@@ -1,0 +1,99 @@
+{% extends "_layout.html" %}
+
+        {% block heading %}
+          
+        {% endblock %}
+
+     {% block body %}
+     
+<!-- Start your project here-->
+<div class="container-fluid">
+  <div class="flex-column mt-5">
+      <div class="container mb-5">
+
+        
+         <div class="row">
+          <div class="offset-sm-3 col-sm-6">
+            <h4>Title : {{bookDetail.title}}</h4>
+           <h4>ISBN Number : {{bookDetail.isbn}}</h4>
+           <h4>Author : {{bookDetail.author}}</h4>
+           <h4>Publication year : {{bookDetail.publication_year}}</h4>
+          </div>
+         </div>
+        
+      </div>
+
+      
+
+       <hr>
+
+
+       <div class="row">
+        <div class="text-center offset-sm-3 col-sm-6 mt-2" >
+            <form action="postReview" method="POST">
+                
+                <div class="rate">
+                        <input type="radio" id="star5" name="rate" value="5" />
+                        <label for="star5" title="text">5 stars</label>
+                        <input type="radio" id="star4" name="rate" value="4" />
+                        <label for="star4" title="text">4 stars</label>
+                        <input type="radio" id="star3" name="rate" value="3" />
+                        <label for="star3" title="text">3 stars</label>
+                        <input type="radio" id="star2" name="rate" value="2" />
+                        <label for="star2" title="text">2 stars</label>
+                        <input type="radio" id="star1" name="rate" value="1" />
+                        <label for="star1" title="text">1 star</label>
+                      </div>
+                      <h4>Average Rating : {{average_rating}}</h4>
+                      <h4>Number of Rating : {{ratings_count}}</h4>
+                <div class="form-group">
+                        <label for="exampleFormControlTextarea2">Add review</label>
+                        <textarea class="form-control rounded-0" id="exampleFormControlTextarea2" rows="3" name="comment"></textarea>
+                      </div>
+                      <input type="hidden" value="{{bookDetail.id}}" name="bookId"  hidden>
+                      <input type="hidden" value="{{userId}}" name="userId"  hidden>
+                <button type="submit" class="btn btn-primary btn-sm" style="border-radius: 20px;" >Add Review</button>
+            </form>     
+        </div>
+       </div>
+       <hr>
+       <div class="container">
+
+         {% if noReview %}
+         <h2 class="alert alert-info">No reviews yet</h2>
+     
+        {% else %}
+        <h2 >Reviews</h2>
+            <ul>
+  
+                {% for review in bookReview %}
+                <li style="list-style: none">
+              
+                  <div class="border border-primary mb-5">
+                    <div class="row">
+                      <div class="col-sm-8 pl-5">
+                         <b>Comment:</b> {{review.comment}}
+                      </div>
+                      <div class="col-sm-4 pl-5">
+                         <b>Rating: </b> {{review.ratings }}
+                        </div>
+                    </div>
+                    
+                  </div>
+                </li>
+                {% endfor %}
+              </ul>
+         
+     {% endif %}
+       </div>
+       
+  </div>
+
+</div>
+<script src="{{ url_for('static',filename='vendor/mdb/js/jquery-3.4.1.min.js') }}"></script>
+<script src="{{ url_for('static',filename='vendor/mdb/js/popper.min.js') }}"></script>
+<script src="{{ url_for('static',filename='vendor/mdb/js/bootstrap.min.js') }}"></script>
+<script src="{{ url_for('static',filename='vendor/mdb/js/mdb.min.js') }}"></script>
+      {% endblock %}
+
+
